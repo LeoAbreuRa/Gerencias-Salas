@@ -6,11 +6,15 @@
 package br.com.container.dao;
 
 import br.com.container.modelo.Aluno;
+import java.util.List;
+import org.hibernate.Session;
 
 /**
  *
  * @author Alunos
  */
 public interface AlunoDao extends BaseDao<Aluno, Long>{
+    
+    public List<Aluno> pesquisarCPF(String cpf, Session session);
     
 }
