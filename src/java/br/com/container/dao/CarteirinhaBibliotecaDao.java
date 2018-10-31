@@ -5,7 +5,6 @@
  */
 package br.com.container.dao;
 
-import br.com.container.modelo.Aluno;
 import br.com.container.modelo.CarteirinhaBiblioteca;
 import java.util.List;
 import org.hibernate.Session;
