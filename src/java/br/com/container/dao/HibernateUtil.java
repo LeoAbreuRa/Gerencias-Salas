@@ -6,6 +6,7 @@
 package br.com.container.dao;
 
 import br.com.container.modelo.Agenda;
+import br.com.container.modelo.Aluno;
 import br.com.container.modelo.Atividade;
 import br.com.container.modelo.Curso;
 import br.com.container.modelo.DiaDaSemana;
@@ -43,6 +44,7 @@ public class HibernateUtil {
             cfg.addAnnotatedClass(Reserva.class);
             cfg.addAnnotatedClass(Funcao.class);
             cfg.addAnnotatedClass(Pessoa.class);
+            cfg.addAnnotatedClass(Aluno.class);
             cfg.addAnnotatedClass(Funcionario.class);
             cfg.addAnnotatedClass(Agenda.class);
             cfg.addAnnotatedClass(Professor.class);
