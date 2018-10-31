@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../logado/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="conteudo">
+
+        <h1 class="jr-titulo1">Atividades</h1>
+        <h:form id="form_pesquisa">
+            <!--mostra a toolbar se mostra_toolbar == true-->
+            <p:toolbar styleClass="toolbar" rendered="#{!processoC.mostra_toolbar}"  >
+                <p:toolbarGroup  >
+                    <p:commandButton value="Pesquisar" disabled="true" />
+                    <p:separator></p:separator>
+                    <p:commandButton value="Novo" actionListener="#{processoC.novo}" update="@form" global="false"  />
+                </p:toolbarGroup>
+            </p:toolbar>
+            <!--mostra a toolbar se mostra_toolbar == false-->
+            <p:toolbar id="toolbar_pesquisa" styleClass="toolbar" rendered="#{processoC.mostra_toolbar}">
+
+                <p:toolbarGroup  >
+                    <p:commandButton value="Salvar" action="#{processoC.salvar()}" update="panelGrop" />
+                    <p:separator></p:separator>
+                    <p:commandButton value="Cancelar" actionListener="#{processoC.novaPesquisa}" immediate="true"
+                                     update="@form" global="false" />
+                </p:toolbarGroup>
+
+            </p:toolbar>
+        </h:form>
+        <h:panelGrid columns="2" columnClasses="left,right" style="width:100%">
+            <p:chart type="bar" model="#{graficoC.animatedModel2}" style="width:100%;" />
+        </h:panelGrid>
+
+    </ui:define>
+
+</ui:composition>
