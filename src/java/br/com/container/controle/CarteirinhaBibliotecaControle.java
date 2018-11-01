@@ -12,6 +12,8 @@ import br.com.container.modelo.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import org.hibernate.HibernateException;
@@ -21,6 +23,9 @@ import org.hibernate.Session;
  *
  * @author Pedrão
  */
+
+@ManagedBean(name = "carteirinhaC")
+@ViewScoped
 public class CarteirinhaBibliotecaControle implements Serializable {
      
     private CarteirinhaBiblioteca carteirinhaBiblioteca;
@@ -63,7 +68,11 @@ public class CarteirinhaBibliotecaControle implements Serializable {
         } finally {
             session.close();
         }
-    }  
+    } 
+   
+   public void pesquisarAlunoPorCpf(){
+       
+   }
    
     public void salvar() {
         dao = new CarteirinhaBibliotecaDaoImpl();
@@ -71,7 +80,7 @@ public class CarteirinhaBibliotecaControle implements Serializable {
             abreSessao();
             
             
-           
+           carteirinhaBiblioteca.setAluno(aluno);
             dao.salvarOuAlterar(carteirinhaBiblioteca, session);
             Mensagem.salvar("Carteirinha salva");
         } catch (Exception ex) {
