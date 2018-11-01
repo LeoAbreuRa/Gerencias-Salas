@@ -95,8 +95,8 @@ public class AlunoControle implements Serializable {
             System.err.println("Erro pesquisa aluno:\n" + ex.getMessage());
         } finally {
             aluno = new Aluno();
+            aluno.setEndereco(endereco = new Endereco());
             aluno.setWhatsapp(false);
-            
             session.close();
         }
     }
