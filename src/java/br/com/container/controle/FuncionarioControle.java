@@ -120,10 +120,6 @@ public class FuncionarioControle implements Serializable {
             funcao = null;
 
         } catch (HibernateException e) {
-            boolean isLoginDuplicado = e.getCause().getMessage().contains("'email_UNIQUE'");
-            if (!isLoginDuplicado) {
-                Mensagem.campoExiste("E-mail");
-            }
 
             System.out.println("Erro ao salvar funcionario " + e.getMessage());
         } catch (Exception e) {
