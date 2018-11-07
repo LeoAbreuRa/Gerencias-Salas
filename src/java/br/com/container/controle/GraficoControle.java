@@ -21,7 +21,7 @@ import org.primefaces.model.chart.LineChartSeries;
 
 @ManagedBean(name = "graficoC")
 @ViewScoped
-public class GraficoControle {
+public class GraficoControle implements Serializable{
 
     private LineChartModel animatedModel1;
     private BarChartModel animatedModel2;

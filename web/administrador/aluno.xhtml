@@ -108,22 +108,22 @@
                     <p:selectBooleanButton id="btWhats" value="#{alunoC.aluno.whatsapp}" offLabel="Não" onLabel="Sim" offIcon="ui-icon-close" onIcon="ui-icon-check"/>
 
                     <p:outputLabel for="email" value="Email:" />
-                    <p:inputText id="email" value="#{alunoC.aluno.email}" style="width: 100%; max-width: 600px;"/>
+                    <p:inputText id="email" value="#{alunoC.aluno.email}" required="true" style="width: 100%; max-width: 600px;"/>
 
                     <p:outputLabel for="logradouro" value="Logradouro :" />
-                    <p:inputText id="logradouro" value="#{alunoC.endereco.logradouro}"  style="width: 100%; max-width: 600px;"/>
+                    <p:inputText id="logradouro" value="#{alunoC.endereco.logradouro}" required="true"  style="width: 100%; max-width: 600px;"/>
                     
                     <p:outputLabel for="bairro" value="Bairro :" />
-                    <p:inputText id="bairro" value="#{alunoC.endereco.bairro}"  style="width: 100%; max-width: 600px;"/>
+                    <p:inputText id="bairro" value="#{alunoC.endereco.bairro}" required="true"  style="width: 100%; max-width: 600px;"/>
                     
                     <p:outputLabel for="cidade" value="Cidade :" />
-                    <p:inputText id="cidade" value="#{alunoC.endereco.cidade}"  style="width: 100%; max-width: 600px;"/>
+                    <p:inputText id="cidade" value="#{alunoC.endereco.cidade}" required="true" style="width: 100%; max-width: 600px;"/>
                     
                     <p:outputLabel for="complemento" value="Complemento :" />
-                    <p:inputText id="complemento" value="#{alunoC.endereco.complemento}"  style="width: 100%; max-width: 600px;"/>
+                    <p:inputText id="complemento" value="#{alunoC.endereco.complemento}" required="true" style="width: 100%; max-width: 600px;"/>
                     
                     <p:outputLabel for="numero" value="Numero :" />
-                    <p:inputText id="numero" value="#{alunoC.endereco.numero}"  style="width: 100%; max-width: 600px;"/>
+                    <p:inputText id="numero" value="#{alunoC.endereco.numero}" required="true" style="width: 100%; max-width: 600px;"/>
                     
                     <p:outputLabel for="observacao" value="Observacao :" />
                     <p:inputTextarea id="observacao" value="#{alunoC.endereco.observacao}"  cols="40" style="width: 100%; max-width: 600px;"/>
