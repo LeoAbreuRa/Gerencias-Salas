@@ -9,7 +9,7 @@
 
     <ui:define name="conteudo">
         <h1 class="jr-titulo1">Aluno</h1>
-        
+
 
         <h:form id="form_pesquisa">
 
@@ -72,8 +72,8 @@
                             <f:setPropertyActionListener target="#{alunoC.aluno}" value="#{aluno}"/>          
                         </p:commandButton>
 
-                        <p:commandButton icon="ui-icon-trash" actionListener="#{alunoC.excluir()}"
-                                         update="dadosAluno" title="Excluir">
+                        <p:commandButton icon="ui-icon-trash"  actionListener="#{alunoC.excluir()}"
+                                         update="@form" title="Excluir">
                             <p:confirm header="Confirmação" message="Tem certeza exclusão?" 
                                        icon="ui-icon-alert" />
                             <f:setPropertyActionListener target="#{alunoC.aluno}" value="#{aluno}"   />
@@ -93,38 +93,38 @@
                 <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-2, ui-grid-col-4" 
                              styleClass="painel_grid_noborder" >
                     <p:outputLabel for="nome" value="Nome :" />
-                    <p:inputText id="nome" value="#{alunoC.aluno.nome}" required="true" size="40" style="width: 100%; max-width: 600px;"/>
+                    <p:inputText id="nome" value="#{alunoC.aluno.nome}" requiredMessage="Nome é obrigatório" required="true" size="40" style="width: 100%; max-width: 600px;"/>
 
                     <p:outputLabel for="foneFixo" value="Fone fixo:" />
                     <p:inputMask id="foneFixo" value="#{alunoC.aluno.foneFixo}" required="false" mask="(99) 99999-9999" style="width: 100%; max-width: 600px;"/>
 
                     <p:outputLabel for="foneMovel" value="Fone Móvel:" />
-                    <p:inputMask  id="foneMovel" value="#{alunoC.aluno.foneMovel}" required="true" mask="(99) 99999-9999" style="width: 100%; max-width: 600px;"/>
-                    
+                    <p:inputMask  id="foneMovel" value="#{alunoC.aluno.foneMovel}" requiredMessage="Fone Móvel é obrigatório" required="true" mask="(99) 99999-9999" style="width: 100%; max-width: 600px;"/>
+
                     <p:outputLabel for="cpf" value="CPF:" />
-                    <p:inputMask  id="cpf" value="#{alunoC.aluno.cpf}" required="true" mask="999.999.999.99" style="width: 100%; max-width: 600px;"/>
-                    
+                    <p:inputMask  id="cpf" value="#{alunoC.aluno.cpf}" requiredMessage="CPF é obrigatório" required="true" mask="999.999.999.99" style="width: 100%; max-width: 600px;"/>
+
                     <p:outputLabel for="btWhats" value="Móvel tem Whatsapp"/>
                     <p:selectBooleanButton id="btWhats" value="#{alunoC.aluno.whatsapp}" offLabel="Não" onLabel="Sim" offIcon="ui-icon-close" onIcon="ui-icon-check"/>
 
                     <p:outputLabel for="email" value="Email:" />
-                    <p:inputText id="email" value="#{alunoC.aluno.email}" required="true" style="width: 100%; max-width: 600px;"/>
+                    <p:inputText id="email" value="#{alunoC.aluno.email}" requiredMessage="E-mail é obrigatório"  required="true" style="width: 100%; max-width: 600px;"/>
 
                     <p:outputLabel for="logradouro" value="Logradouro :" />
-                    <p:inputText id="logradouro" value="#{alunoC.endereco.logradouro}" required="true"  style="width: 100%; max-width: 600px;"/>
-                    
+                    <p:inputText id="logradouro" value="#{alunoC.endereco.logradouro}" requiredMessage="Logradouro é obrigatório" required="true"  style="width: 100%; max-width: 600px;"/>
+
                     <p:outputLabel for="bairro" value="Bairro :" />
-                    <p:inputText id="bairro" value="#{alunoC.endereco.bairro}" required="true"  style="width: 100%; max-width: 600px;"/>
-                    
+                    <p:inputText id="bairro" value="#{alunoC.endereco.bairro}" requiredMessage="Bairro é obrigatório" required="true"  style="width: 100%; max-width: 600px;"/>
+
                     <p:outputLabel for="cidade" value="Cidade :" />
-                    <p:inputText id="cidade" value="#{alunoC.endereco.cidade}" required="true" style="width: 100%; max-width: 600px;"/>
-                    
+                    <p:inputText id="cidade" value="#{alunoC.endereco.cidade}" requiredMessage="Cidade é obrigatório" required="true" style="width: 100%; max-width: 600px;"/>
+
                     <p:outputLabel for="complemento" value="Complemento :" />
-                    <p:inputText id="complemento" value="#{alunoC.endereco.complemento}" required="true" style="width: 100%; max-width: 600px;"/>
-                    
+                    <p:inputText id="complemento" value="#{alunoC.endereco.complemento}" style="width: 100%; max-width: 600px;"/>
+
                     <p:outputLabel for="numero" value="Numero :" />
-                    <p:inputText id="numero" value="#{alunoC.endereco.numero}" required="true" style="width: 100%; max-width: 600px;"/>
-                    
+                    <p:inputText id="numero" value="#{alunoC.endereco.numero}" requiredMessage="Número é obrigatório" required="true" style="width: 100%; max-width: 600px;"/>
+
                     <p:outputLabel for="observacao" value="Observacao :" />
                     <p:inputTextarea id="observacao" value="#{alunoC.endereco.observacao}"  cols="40" style="width: 100%; max-width: 600px;"/>
 

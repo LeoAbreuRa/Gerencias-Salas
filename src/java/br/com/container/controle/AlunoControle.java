@@ -113,6 +113,8 @@ public class AlunoControle implements Serializable {
         try {
             abreSessao();
             dao.remover(aluno, session);
+            aluno = null;
+            modelAlunos = null;
             Mensagem.excluir("Aluno " + aluno.getNome());
             aluno = new Aluno();
         } catch (Exception ex) {
