@@ -1,6 +1,8 @@
 
 package br.com.container.controle;
 
+import br.com.container.dao.AlunoDao;
+import br.com.container.dao.AlunoDaoImpl;
 import br.com.container.dao.CarteirinhaBibliotecaDao;
 import br.com.container.dao.CarteirinhaBibliotecaDaoImpl;
 import br.com.container.dao.HibernateUtil;
@@ -37,6 +39,12 @@ public class CarteirinhaBibliotecaControle implements Serializable {
     private String pesqNome = "";
     private String pesqCpf = "";     
     private Aluno aluno;
+    private AlunoDao AlunoDao;
+    private List<Aluno> alunos;
+    private DataModel<Aluno> modelAlunos;
+
+   
+   
     private DataModel<CarteirinhaBiblioteca> modelCarteirinhas;
     private CarteirinhaBibliotecaDao dao;
    
@@ -60,8 +68,17 @@ public class CarteirinhaBibliotecaControle implements Serializable {
         dao = new CarteirinhaBibliotecaDaoImpl();
         try {
             abreSessao();
-
-           
+            if (!pesqNome.equals("") && !pesqCpf.equals("")) {
+                carteirinhas = dao.pesquisaPorNome(pesqNome, session);
+            } else if (!pesqCpf.equals("")) {
+                carteirinhas = dao.pesquisarPorCPF(pesqCpf, session);
+            } else{
+                carteirinhas = dao.listaTodos(session);
+            }
+            
+            modelCarteirinhas = new ListDataModel(carteirinhas);
+            pesqNome = null;
+            pesqCpf = null;
            
         } catch (HibernateException ex) {
             System.err.println("Erro pesquisa carteirinha:\n" + ex.getMessage());
@@ -70,8 +87,26 @@ public class CarteirinhaBibliotecaControle implements Serializable {
         }
     } 
    
+ 
    public void pesquisarAlunoPorCpf(){
+        AlunoDao = new AlunoDaoImpl();
+       try{
+           abreSessao();
+           if(!pesqCpf.equals("")) {
+            aluno = AlunoDao.pesquisarCPF(pesqCpf, session);
+            } else{
+                alunos = AlunoDao.listaTodos(session);
+            }
+
+            modelAlunos = new ListDataModel(alunos);
+            pesqCpf = null;
+           
+       } catch (HibernateException ex) {
+         System.err.println("Erro  ao pesquisar aluno por cpf :\n" + ex.getMessage());
        
+       } finally{
+         session.close();
+        }
    }
    
     public void salvar() {
@@ -79,8 +114,7 @@ public class CarteirinhaBibliotecaControle implements Serializable {
         try {
             abreSessao();
             
-            
-           carteirinhaBiblioteca.setAluno(aluno);
+            carteirinhaBiblioteca.setAluno(aluno);
             dao.salvarOuAlterar(carteirinhaBiblioteca, session);
             Mensagem.salvar("Carteirinha salva");
         } catch (Exception ex) {
@@ -90,6 +124,27 @@ public class CarteirinhaBibliotecaControle implements Serializable {
             carteirinhaBiblioteca = new CarteirinhaBiblioteca();
             
             
+            session.close();
+        }
+    }
+    
+    public void alterarCarteirinha() {
+        mostraToolbar = !mostraToolbar;
+        carteirinhaBiblioteca = modelCarteirinhas.getRowData();
+        
+    }
+
+    public void excluir() {
+        carteirinhaBiblioteca = modelCarteirinhas.getRowData();
+        dao = new CarteirinhaBibliotecaDaoImpl();
+        try {
+            abreSessao();
+            dao.remover(carteirinhaBiblioteca, session);
+            Mensagem.excluir("Carteirinha " + carteirinhaBiblioteca.getAluno());
+            aluno = new Aluno();
+        } catch (Exception ex) {
+            System.err.println("Erro ao excluir carteirinha\n" + ex.getMessage());
+        } finally {
             session.close();
         }
     }

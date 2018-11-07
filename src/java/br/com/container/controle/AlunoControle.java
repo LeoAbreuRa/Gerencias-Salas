@@ -67,7 +67,7 @@ public class AlunoControle implements Serializable {
             if (!pesqNome.equals("") && !pesqCpf.equals("")) {
                 alunos = dao.pesquisaPorNome(pesqNome, session);
             } else if (!pesqCpf.equals("")) {
-                alunos = dao.pesquisarCPF(pesqCpf, session);
+                aluno = dao.pesquisarCPF(pesqCpf, session);
             } else{
                 alunos = dao.listaTodos(session);
             }
