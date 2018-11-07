@@ -56,7 +56,7 @@ public class ProfessorControle implements Serializable {
 
     public void mudaToolbar() {
         prof = new Professor();
-        prof.setWhatsapp(true);
+        prof.setWhatsapp(false);
         profs = new ArrayList();
         disciplinas = new ArrayList();
         pesqNome = "";
