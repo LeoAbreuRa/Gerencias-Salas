@@ -18,6 +18,8 @@ import org.hibernate.Session;
  */
 public class AlunoDaoImpl extends BaseDaoImpl<Aluno, Long> implements AlunoDao, Serializable{
 
+   
+
     @Override
     public Aluno pesquisaEntidadeId(Long id, Session session) throws HibernateException {
         return (Aluno) session.get(Aluno.class, id);
@@ -36,10 +38,10 @@ public class AlunoDaoImpl extends BaseDaoImpl<Aluno, Long> implements AlunoDao, 
     }
 
     @Override
-    public List<Aluno> pesquisarCPF(String cpf, Session session) {
-        Query consulta = session.createQuery("from Aluno where cpf like :cpf");
+    public Aluno pesquisarCPF(String cpf, Session session) throws HibernateException {
+        Query consulta = session.createQuery("from Aluno where cpf = :cpf");
         consulta.setParameter("cpf", cpf);
-        return consulta.list();
+        return (Aluno) consulta.uniqueResult();
     }
     
 }
