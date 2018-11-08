@@ -125,8 +125,7 @@ public class CarteirinhaBibliotecaControle implements Serializable {
             System.err.println("Erro pesquisa carteirinha:\n" + ex.getMessage());
         } finally {
             carteirinhaBiblioteca = new CarteirinhaBiblioteca();
-            
-            
+              
             session.close();
         }
     }
