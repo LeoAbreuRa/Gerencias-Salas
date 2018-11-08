@@ -12,7 +12,6 @@ import br.com.container.dao.UsuarioDao;
 import br.com.container.dao.UsuarioDaoImpl;
 import br.com.container.modelo.Perfil;
 import br.com.container.modelo.Usuario;
-import br.com.container.util.GeradorLetraNumero;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
