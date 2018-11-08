@@ -6,10 +6,10 @@ import br.com.container.dao.AlunoDaoImpl;
 import br.com.container.dao.CarteirinhaBibliotecaDao;
 import br.com.container.dao.CarteirinhaBibliotecaDaoImpl;
 import br.com.container.dao.HibernateUtil;
-import br.com.container.dao.ProfessorDaoImpl;
+
 import br.com.container.modelo.Aluno;
 import br.com.container.modelo.CarteirinhaBiblioteca;
-import br.com.container.modelo.Professor;
+
 import br.com.container.modelo.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,22 +31,23 @@ import org.hibernate.Session;
 public class CarteirinhaBibliotecaControle implements Serializable {
      
     private CarteirinhaBiblioteca carteirinhaBiblioteca;
-    private Usuario usuario;
+   
     private Session session;
     private List<CarteirinhaBiblioteca> carteirinhas;
-    private boolean mostraToolbar = false;
+    private boolean mostra_toolbar = false;
     private boolean pesquisaPorCpf = false;
     private String pesqNome = "";
     private String pesqCpf = "";     
     private Aluno aluno;
-    private AlunoDao AlunoDao;
+    private AlunoDao alunoDao;
     private List<Aluno> alunos;
     private DataModel<Aluno> modelAlunos;
-
-   
-   
     private DataModel<CarteirinhaBiblioteca> modelCarteirinhas;
     private CarteirinhaBibliotecaDao dao;
+
+    public CarteirinhaBibliotecaControle() {
+        dao = new CarteirinhaBibliotecaDaoImpl();
+    }
    
     
     
@@ -61,7 +62,8 @@ public class CarteirinhaBibliotecaControle implements Serializable {
         carteirinhaBiblioteca = new CarteirinhaBiblioteca();
         carteirinhas = new ArrayList();
         pesqNome = "";
-        mostraToolbar = !mostraToolbar;
+        pesqCpf = "";
+        mostra_toolbar = !mostra_toolbar;
     }
       
    public void pesquisar() {
@@ -89,13 +91,13 @@ public class CarteirinhaBibliotecaControle implements Serializable {
    
  
    public void pesquisarAlunoPorCpf(){
-        AlunoDao = new AlunoDaoImpl();
+        alunoDao = new AlunoDaoImpl();
        try{
            abreSessao();
            if(!pesqCpf.equals("")) {
-            aluno = AlunoDao.pesquisarCPF(pesqCpf, session);
+            aluno = alunoDao.pesquisarCPF(pesqCpf, session);
             } else{
-                alunos = AlunoDao.listaTodos(session);
+                alunos = alunoDao.listaTodos(session);
             }
 
             modelAlunos = new ListDataModel(alunos);
@@ -116,6 +118,7 @@ public class CarteirinhaBibliotecaControle implements Serializable {
             
             carteirinhaBiblioteca.setAluno(aluno);
             dao.salvarOuAlterar(carteirinhaBiblioteca, session);
+            
             Mensagem.salvar("Carteirinha salva");
         } catch (Exception ex) {
             Mensagem.mensagemError("Erro ao salvar\nTente novamente");
@@ -129,7 +132,7 @@ public class CarteirinhaBibliotecaControle implements Serializable {
     }
     
     public void alterarCarteirinha() {
-        mostraToolbar = !mostraToolbar;
+        mostra_toolbar = !mostra_toolbar;
         carteirinhaBiblioteca = modelCarteirinhas.getRowData();
         
     }
@@ -148,6 +151,45 @@ public class CarteirinhaBibliotecaControle implements Serializable {
             session.close();
         }
     }
+     
+    public void carregarParaAlterar() {
+        mostra_toolbar = !mostra_toolbar;
+        carteirinhaBiblioteca = modelCarteirinhas.getRowData();
+        
+    }
+    
+    
+    
+     public List<Aluno> getAlunos() {
+        if (alunos == null) {
+            alunos = new ArrayList();
+        }
+        return alunos;
+    }
+     
+     public void novo() {
+        mostra_toolbar = !mostra_toolbar;
+
+    }
+     
+     public void novaPesquisa() {
+        mostra_toolbar = !mostra_toolbar;
+    }
+
+    public void preparaAlterar() {
+        mostra_toolbar = !mostra_toolbar;
+    } 
+    
+    
+     public void limpar() {
+        aluno = new Aluno();
+        carteirinhaBiblioteca = new CarteirinhaBiblioteca();
+    } 
+    
+    
+    public void limparTela() {
+        limpar();
+    }
 
     public CarteirinhaBiblioteca getCarteirinhaBiblioteca() {
         return carteirinhaBiblioteca;
@@ -157,13 +199,7 @@ public class CarteirinhaBibliotecaControle implements Serializable {
         this.carteirinhaBiblioteca = carteirinhaBiblioteca;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+    
 
     public Session getSession() {
         return session;
@@ -181,12 +217,12 @@ public class CarteirinhaBibliotecaControle implements Serializable {
         this.carteirinhas = carteirinhas;
     }
 
-    public boolean isMostraToolbar() {
-        return mostraToolbar;
+    public boolean isMostra_toolbar() {
+        return mostra_toolbar;
     }
 
-    public void setMostraToolbar(boolean mostraToolbar) {
-        this.mostraToolbar = mostraToolbar;
+    public void setMostra_toolbar(boolean mostra_toolbar) {
+        this.mostra_toolbar = mostra_toolbar;
     }
 
     public boolean isPesquisaPorCpf() {
@@ -214,6 +250,11 @@ public class CarteirinhaBibliotecaControle implements Serializable {
     }
 
     public Aluno getAluno() {
+          if (aluno == null) {
+            aluno = new Aluno();
+            
+        }
+        
         return aluno;
     }
 
@@ -235,6 +276,14 @@ public class CarteirinhaBibliotecaControle implements Serializable {
 
     public void setDao(CarteirinhaBibliotecaDao dao) {
         this.dao = dao;
+    }
+
+    public DataModel<Aluno> getModelAlunos() {
+        return modelAlunos;
+    }
+
+    public void setModelAlunos(DataModel<Aluno> modelAlunos) {
+        this.modelAlunos = modelAlunos;
     }
 
      
