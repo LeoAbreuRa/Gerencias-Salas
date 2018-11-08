@@ -6,6 +6,7 @@
 package br.com.container.modelo;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -36,6 +37,12 @@ public class Endereco implements Serializable {
     @OneToOne
     @JoinColumn(name = "idPessoa")
     private Pessoa pessoa;
+    
+    @OneToOne
+    @JoinColumn(name= "idEmpresa")
+    private Empresa empresa;
+    
+    
 
     public Long getId() {
         return id;
@@ -101,6 +108,15 @@ public class Endereco implements Serializable {
         this.pessoa = pessoa;
     }
 
+    public Empresa getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
+    }
+
+    
    
 
     @Override
