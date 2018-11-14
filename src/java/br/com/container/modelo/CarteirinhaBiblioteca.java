@@ -16,7 +16,7 @@ import javax.persistence.Temporal;
 
 /**
  *
- * @author Pedrão
+ * @author Pedrão Master
  */
 
 @Entity

@@ -11,7 +11,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Pedrão
+ * @author Pedrão Master
  */
 public class CarteirinhaBibliotecaDaoImpl  extends BaseDaoImpl<CarteirinhaBiblioteca, Long> implements CarteirinhaBibliotecaDao, Serializable  {
 
