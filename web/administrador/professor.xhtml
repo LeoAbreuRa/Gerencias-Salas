@@ -9,7 +9,7 @@
 
     <ui:define name="conteudo">
         <h1 class="jr-titulo1">Professor</h1>
-        
+
 
         <h:form id="form_pesquisa">
 
@@ -81,13 +81,14 @@
                     </p:column>
 
                 </p:dataTable>
+                <p:confirmDialog id="confirmacao" global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" 
+                                     icon="ui-icon-check" />
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" 
+                                     icon="ui-icon-close" />
+                </p:confirmDialog>
             </h:panelGroup> 
-            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" 
-                                 icon="ui-icon-check" />
-                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" 
-                                 icon="ui-icon-close" />
-            </p:confirmDialog>
+
 
             <h:panelGroup id="aba_alterar" rendered="#{profC.mostraToolbar}">
                 <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-2, ui-grid-col-4" 
@@ -100,7 +101,7 @@
 
                     <p:outputLabel for="foneMovel" value="Fone Móvel:" />
                     <p:inputMask  id="foneMovel" value="#{profC.prof.foneMovel}" required="true" mask="(99) 99999-9999" style="width: 100%; max-width: 600px;"/>
-                    
+
                     <p:outputLabel for="btWhats" value="Móvel tem Whatsapp"/>
                     <p:selectBooleanButton id="btWhats" value="#{profC.prof.whatsapp}" offLabel="Não" onLabel="Sim" offIcon="ui-icon-close" onIcon="ui-icon-check"/>
 
@@ -109,19 +110,19 @@
 
                     <p:outputLabel for="logradouro" value="Logradouro :" />
                     <p:inputText id="logradouro" value="#{profC.endereco.logradouro}"  style="width: 100%; max-width: 600px;"/>
-                    
+
                     <p:outputLabel for="bairro" value="Bairro :" />
                     <p:inputText id="bairro" value="#{profC.endereco.bairro}"  style="width: 100%; max-width: 600px;"/>
-                    
+
                     <p:outputLabel for="cidade" value="Cidade :" />
                     <p:inputText id="cidade" value="#{profC.endereco.cidade}"  style="width: 100%; max-width: 600px;"/>
-                    
+
                     <p:outputLabel for="complemento" value="Complemento :" />
                     <p:inputText id="complemento" value="#{profC.endereco.complemento}"  style="width: 100%; max-width: 600px;"/>
-                    
+
                     <p:outputLabel for="numero" value="Numero :" />
                     <p:inputText id="numero" value="#{profC.endereco.numero}"  style="width: 100%; max-width: 600px;"/>
-                    
+
                     <p:outputLabel for="observacao" value="Observacao :" />
                     <p:inputTextarea id="observacao" value="#{profC.endereco.observacao}"  cols="40" style="width: 100%; max-width: 600px;"/>
 

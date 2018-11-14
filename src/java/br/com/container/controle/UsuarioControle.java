@@ -12,6 +12,7 @@ import br.com.container.dao.UsuarioDao;
 import br.com.container.dao.UsuarioDaoImpl;
 import br.com.container.modelo.Perfil;
 import br.com.container.modelo.Usuario;
+import br.com.container.util.CriptografaSenha;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -139,6 +140,7 @@ public class UsuarioControle implements Serializable {
         abreSessao();
         String senha = "12345";
         usuario.setSenha(senha);
+        usuario.setSenha(CriptografaSenha.criptoSenha(usuario.getSenha()));
         if (usuario.getId() == null) {
             usuario.setEnable(true);
         }
