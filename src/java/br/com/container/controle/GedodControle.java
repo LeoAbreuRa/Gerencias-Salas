@@ -103,7 +103,7 @@ public class GedodControle implements Serializable {
         }
     }
 
-    public void alterarCarteirinha() {
+    public void alterarEquipamento() {
         mostra_toolbar = !mostra_toolbar;
         gedod = modelGedod.getRowData();
 
@@ -120,6 +120,67 @@ public class GedodControle implements Serializable {
         } finally {
             sessao.close();
         }
+    }
+    
+     
+    public Gedod getGedod() {
+        if (gedod == null) {
+            gedod = new Gedod();
+            
+        }
+        return gedod;
+    }
+
+    public void setGedod(Gedod gedod) {
+        this.gedod = gedod;
+    }
+
+    public Session getSessao() {
+        return sessao;
+    }
+
+    public void setSessao(Session sessao) {
+        this.sessao = sessao;
+    }
+
+    public List<Gedod> getListaGedod() {
+        return listaGedod;
+    }
+
+    public void setListaGedod(List<Gedod> listaGedod) {
+        this.listaGedod = listaGedod;
+    }
+
+    public boolean isMostra_toolbar() {
+        return mostra_toolbar;
+    }
+
+    public void setMostra_toolbar(boolean mostra_toolbar) {
+        this.mostra_toolbar = mostra_toolbar;
+    }
+
+    public GedodDao getDao() {
+        return dao;
+    }
+
+    public void setDao(GedodDao dao) {
+        this.dao = dao;
+    }
+
+    public String getPesqNome() {
+        return pesqNome;
+    }
+
+    public void setPesqNome(String pesqNome) {
+        this.pesqNome = pesqNome;
+    }
+
+    public DataModel<Gedod> getModelGedod() {
+        return modelGedod;
+    }
+
+    public void setModelGedod(DataModel<Gedod> modelGedod) {
+        this.modelGedod = modelGedod;
     }
 
 }
