@@ -11,7 +11,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Alunos
+ * @author Pedrão Master
  */
 public interface CarteirinhaBibliotecaDao extends BaseDao<CarteirinhaBiblioteca, Long>{
     
