@@ -30,7 +30,10 @@ public class CarteirinhaBiblioteca implements Serializable {
     private Date validade;
     @Column(nullable = false)
     private String curso;
-     
+    
+    @Column(nullable = false)
+    private String numero;
+    
     @OneToOne
     @JoinColumn(name = "idAluno")
     private Aluno aluno;
@@ -39,11 +42,12 @@ public class CarteirinhaBiblioteca implements Serializable {
     
     }
 
-    public CarteirinhaBiblioteca(Long id, Date validade, String curso, Aluno aluno) {
+    public CarteirinhaBiblioteca(Long id, Date validade, String curso, Aluno aluno, String numero) {
         this.id = id;
         this.validade = validade;
         this.curso = curso;
         this.aluno = aluno;
+        this.numero = numero;
     }
 
     public Long getId() {
@@ -78,6 +82,14 @@ public class CarteirinhaBiblioteca implements Serializable {
         this.aluno = aluno;
     }
 
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;
@@ -119,6 +131,8 @@ public class CarteirinhaBiblioteca implements Serializable {
     public String toString() {
         return "CarteirinhaBiblioteca{" + "id=" + id + ", validade=" + validade + ", curso=" + curso + ", aluno=" + aluno + '}';
     }
+
+    
     
     
     

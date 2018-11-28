@@ -127,7 +127,7 @@ public class UsuarioControle implements Serializable {
             modelUsuarios = new ListDataModel(usuarios);
             Mensagem.excluir("Usuario");
             limpar();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             System.out.println("erro ao excluir: " + e.getMessage());
         } finally {
             sessao.close();
@@ -140,8 +140,8 @@ public class UsuarioControle implements Serializable {
         abreSessao();
         String senha = "12345";
         usuario.setSenha(senha);
-        usuario.setSenha(CriptografaSenha.criptoSenha(usuario.getSenha()));
         if (usuario.getId() == null) {
+            usuario.setSenha(CriptografaSenha.criptoSenha(usuario.getSenha()));
             usuario.setEnable(true);
         }
         try {

@@ -9,6 +9,7 @@ import br.com.container.modelo.Agenda;
 import br.com.container.modelo.Aluno;
 import br.com.container.modelo.Atividade;
 import br.com.container.modelo.AtividadeTemplate;
+import br.com.container.modelo.CarteirinhaBiblioteca;
 import br.com.container.modelo.Curso;
 import br.com.container.modelo.DiaDaSemana;
 import br.com.container.modelo.Disciplina;
@@ -16,6 +17,7 @@ import br.com.container.modelo.Empresa;
 import br.com.container.modelo.Endereco;
 import br.com.container.modelo.Funcao;
 import br.com.container.modelo.Funcionario;
+import br.com.container.modelo.Gedod;
 import br.com.container.modelo.Perfil;
 import br.com.container.modelo.Pessoa;
 import br.com.container.modelo.Planejamento;
@@ -57,6 +59,8 @@ public class HibernateUtil {
             cfg.addAnnotatedClass(Disciplina.class);
             cfg.addAnnotatedClass(Endereco.class);
             cfg.addAnnotatedClass(Empresa.class);
+            cfg.addAnnotatedClass(Gedod.class);
+            cfg.addAnnotatedClass(CarteirinhaBiblioteca.class);
             cfg.addAnnotatedClass(PlanejamentoTemplate.class);
             cfg.addAnnotatedClass(AtividadeTemplate.class);
             

@@ -16,7 +16,7 @@
             <p:toolbar styleClass="toolbar" rendered="#{!carteirinhaC.mostra_toolbar}">
                 <p:toolbarGroup  >
                     <p:commandButton value="Pesquisar" actionListener="#{carteirinhaC.pesquisar()}"
-                   
+
                                      update="dadosAluno" process="@this panelGridPesq" />
                     <p:separator></p:separator>
                     <p:commandButton value="Novo" actionListener="#{carteirinhaC.novo()}" 
@@ -76,7 +76,7 @@
                             <f:setPropertyActionListener target="#{carteirinhaC.carteirinhaBiblioteca}" value="#{carteirinhaBiblioteca}"   />
                         </p:commandButton>
 
-                      
+
                     </p:column>
 
                 </p:dataTable>
@@ -94,16 +94,13 @@
                 <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-2, ui-grid-col-4" 
                              styleClass="painel_grid_noborder" >
 
-
-                   
-                    <p:outputLabel for="nome" value="Nome :" />
-                    <p:inputText id="nome" value="#{carteirinhaC.aluno.nome}" required="true" style="width: 100%; max-width: 600px;"/>
-                    <p:outputLabel for="cpf" value="CPF :" />
-                    <p:inputText id="cpf" value="#{carteirinhaC.aluno.cpf}" required="true" style="width: 100%; max-width: 600px;"/>
-                    
-                   
-
-
+                    <p:outputLabel value="Nome :" for="nome" />
+                    <p:autoComplete id="nome" minQueryLength="3" value="#{carteirinhaC.aluno.id}" completeMethod="#{carteirinhaC.pesquisaAluno}" effect="fade" 
+                                    var="alu" itemLabel="#{alu.nome}" itemValue="#{alu.id}"/>
+                    <p:outputLabel for="Curso" value="Curso :" />
+                    <p:inputText id="Curso" value="#{carteirinhaC.carteirinhaBiblioteca.curso}" required="true" style="width: 100%; max-width: 600px;"/>
+                    <p:outputLabel for="validade" value="Validade : " />
+                    <p:calendar id="validade" value="#{carteirinhaC.carteirinhaBiblioteca.validade}" pattern="dd/MM/yyyy" />
                 </p:panelGrid>
             </h:panelGroup>
             <!--fim da tela de cadastro-->

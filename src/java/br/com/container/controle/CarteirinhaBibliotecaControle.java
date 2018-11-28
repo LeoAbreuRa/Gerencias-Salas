@@ -1,4 +1,3 @@
-
 package br.com.container.controle;
 
 import br.com.container.dao.AlunoDao;
@@ -25,19 +24,18 @@ import org.hibernate.Session;
  *
  * @author Pedrão
  */
-
 @ManagedBean(name = "carteirinhaC")
 @ViewScoped
 public class CarteirinhaBibliotecaControle implements Serializable {
-     
+
     private CarteirinhaBiblioteca carteirinhaBiblioteca;
-   
+
     private Session session;
     private List<CarteirinhaBiblioteca> carteirinhas;
     private boolean mostra_toolbar = false;
     private boolean pesquisaPorCpf = false;
     private String pesqNome = "";
-    private String pesqCpf = "";     
+    private String pesqCpf = "";
     private Aluno aluno;
     private AlunoDao alunoDao;
     private List<Aluno> alunos;
@@ -48,25 +46,24 @@ public class CarteirinhaBibliotecaControle implements Serializable {
     public CarteirinhaBibliotecaControle() {
         dao = new CarteirinhaBibliotecaDaoImpl();
     }
-   
-    
-    
-     private void abreSessao() {
+
+    private void abreSessao() {
         if (session == null) {
             session = HibernateUtil.abreSessao();
         } else if (!session.isOpen()) {
             session = HibernateUtil.abreSessao();
         }
     }
-      public void mudaToolbar() {
+
+    public void mudaToolbar() {
         carteirinhaBiblioteca = new CarteirinhaBiblioteca();
         carteirinhas = new ArrayList();
         pesqNome = "";
         pesqCpf = "";
         mostra_toolbar = !mostra_toolbar;
     }
-      
-   public void pesquisar() {
+
+    public void pesquisar() {
         dao = new CarteirinhaBibliotecaDaoImpl();
         try {
             abreSessao();
@@ -74,66 +71,66 @@ public class CarteirinhaBibliotecaControle implements Serializable {
                 carteirinhas = dao.pesquisaPorNome(pesqNome, session);
             } else if (!pesqCpf.equals("")) {
                 carteirinhas = dao.pesquisarPorCPF(pesqCpf, session);
-            } else{
+            } else {
                 carteirinhas = dao.listaTodos(session);
             }
-            
+
             modelCarteirinhas = new ListDataModel(carteirinhas);
             pesqNome = null;
             pesqCpf = null;
-           
+
         } catch (HibernateException ex) {
             System.err.println("Erro pesquisa carteirinha:\n" + ex.getMessage());
         } finally {
             session.close();
         }
-    } 
-   
- 
-   public void pesquisarAlunoPorCpf(){
+    }
+
+    public void pesquisarAlunoPorCpf() {
         alunoDao = new AlunoDaoImpl();
-       try{
-           abreSessao();
-           if(!pesqCpf.equals("")) {
-            aluno = alunoDao.pesquisarCPF(pesqCpf, session);
-            } else{
+        try {
+            abreSessao();
+            if (!pesqCpf.equals("")) {
+                aluno = alunoDao.pesquisarCPF(pesqCpf, session);
+            } else {
                 alunos = alunoDao.listaTodos(session);
             }
 
             modelAlunos = new ListDataModel(alunos);
             pesqCpf = null;
-           
-       } catch (HibernateException ex) {
-         System.err.println("Erro  ao pesquisar aluno por cpf :\n" + ex.getMessage());
-       
-       } finally{
-         session.close();
+
+        } catch (HibernateException ex) {
+            System.err.println("Erro  ao pesquisar aluno por cpf :\n" + ex.getMessage());
+
+        } finally {
+            session.close();
         }
-   }
-   
+    }
+
     public void salvar() {
         dao = new CarteirinhaBibliotecaDaoImpl();
         try {
             abreSessao();
-            
+
+            carteirinhaBiblioteca.setNumero("12345");
             carteirinhaBiblioteca.setAluno(aluno);
             dao.salvarOuAlterar(carteirinhaBiblioteca, session);
-            
+
             Mensagem.salvar("Carteirinha salva");
         } catch (Exception ex) {
             Mensagem.mensagemError("Erro ao salvar\nTente novamente");
             System.err.println("Erro pesquisa carteirinha:\n" + ex.getMessage());
         } finally {
             carteirinhaBiblioteca = new CarteirinhaBiblioteca();
-              
+
             session.close();
         }
     }
-    
+
     public void alterarCarteirinha() {
         mostra_toolbar = !mostra_toolbar;
         carteirinhaBiblioteca = modelCarteirinhas.getRowData();
-        
+
     }
 
     public void excluir() {
@@ -150,55 +147,66 @@ public class CarteirinhaBibliotecaControle implements Serializable {
             session.close();
         }
     }
-     
+
     public void carregarParaAlterar() {
         mostra_toolbar = !mostra_toolbar;
         carteirinhaBiblioteca = modelCarteirinhas.getRowData();
-        
+
     }
-    
-    
-    
-     public List<Aluno> getAlunos() {
+
+    public List<Aluno> pesquisaAluno(String query) {
+        abreSessao();
+        alunoDao = new AlunoDaoImpl();
+        try {
+            alunos = alunoDao.pesquisaPorNome(query, session);
+        } catch (HibernateException he) {
+            System.out.println("Erro no pesquisaAluno Carteirinha Controle " + he.getMessage());
+        } finally {
+            session.close();
+        }
+        return alunos;
+    }
+
+    public List<Aluno> getAlunos() {
         if (alunos == null) {
             alunos = new ArrayList();
         }
         return alunos;
     }
-     
-     public void novo() {
+
+    public void novo() {
         mostra_toolbar = !mostra_toolbar;
 
     }
-     
-     public void novaPesquisa() {
+
+    public void novaPesquisa() {
         mostra_toolbar = !mostra_toolbar;
     }
 
     public void preparaAlterar() {
         mostra_toolbar = !mostra_toolbar;
-    } 
-    
-    
-     public void limpar() {
+    }
+
+    public void limpar() {
         aluno = new Aluno();
         carteirinhaBiblioteca = new CarteirinhaBiblioteca();
-    } 
-    
-    
+    }
+
     public void limparTela() {
         limpar();
     }
 
     public CarteirinhaBiblioteca getCarteirinhaBiblioteca() {
+        if(carteirinhaBiblioteca == null){
+            carteirinhaBiblioteca = new CarteirinhaBiblioteca();
+        }
+        
         return carteirinhaBiblioteca;
     }
 
     public void setCarteirinhaBiblioteca(CarteirinhaBiblioteca carteirinhaBiblioteca) {
         this.carteirinhaBiblioteca = carteirinhaBiblioteca;
     }
-
-    
 
     public Session getSession() {
         return session;
@@ -249,11 +257,11 @@ public class CarteirinhaBibliotecaControle implements Serializable {
     }
 
     public Aluno getAluno() {
-          if (aluno == null) {
+        if (aluno == null) {
             aluno = new Aluno();
-            
+
         }
-        
+
         return aluno;
     }
 
@@ -285,10 +293,4 @@ public class CarteirinhaBibliotecaControle implements Serializable {
         this.modelAlunos = modelAlunos;
     }
 
-     
-     
-  
-     
-     
-     
 }
