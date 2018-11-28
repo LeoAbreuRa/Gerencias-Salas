@@ -71,16 +71,13 @@ public class GedodControle implements Serializable {
         dao = new GedodDaoImpl();
         try {
             abreSessao();
-            if (!pesqNome.equals("")) {
-                listaGedod = dao.pesquisaPorNome(pesqNome, sessao);
 
-            } else {
-                listaGedod = dao.listaTodos(sessao);
-            }
+            listaGedod = dao.pesquisaPorNome(pesqNome, sessao);
             modelGedod = new ListDataModel(listaGedod);
             pesqNome = null;
+            
         } catch (HibernateException ex) {
-            System.err.println("Erro pesquisa equipamento:\n" + ex.getMessage());
+            System.err.println("Erro ao pesquisar equipamento:\n" + ex.getMessage());
         } finally {
             sessao.close();
         }
@@ -92,7 +89,7 @@ public class GedodControle implements Serializable {
             abreSessao();
             dao.salvarOuAlterar(gedod, sessao);
 
-            Mensagem.salvar("Equipamento salvo");
+            Mensagem.salvar("Equipamento ");
         } catch (Exception ex) {
             Mensagem.mensagemError("Erro ao salvar\nTente novamente");
             System.err.println("Erro pesquisa equipamento:\n" + ex.getMessage());
@@ -108,25 +105,25 @@ public class GedodControle implements Serializable {
         gedod = modelGedod.getRowData();
 
     }
+
     public void excluir() {
         gedod = modelGedod.getRowData();
         dao = new GedodDaoImpl();
         try {
             abreSessao();
             dao.remover(gedod, sessao);
-            Mensagem.excluir("Equipamento excluído");
+            Mensagem.excluir("Equipamento ");
         } catch (Exception ex) {
             System.err.println("Erro ao excluir equipamento\n" + ex.getMessage());
         } finally {
             sessao.close();
         }
     }
-    
-     
+
     public Gedod getGedod() {
         if (gedod == null) {
             gedod = new Gedod();
-            
+
         }
         return gedod;
     }
@@ -177,10 +174,6 @@ public class GedodControle implements Serializable {
 
     public DataModel<Gedod> getModelGedod() {
         return modelGedod;
-    }
-
-    public void setModelGedod(DataModel<Gedod> modelGedod) {
-        this.modelGedod = modelGedod;
     }
 
 }

@@ -12,38 +12,21 @@
 
         <h:form id="form_pesquisa">
 
-            <!--mostra a toolbar se mostra_toolbar == true--> 
-            <p:toolbar styleClass="toolbar" rendered="#{!GedodC.mostra_toolbar}">
-                <p:toolbarGroup  >
-                    <p:commandButton value="Pesquisar" actionListener="#{GedodC.pesquisar()}"
-
-                                     update="dadosEquipamento" process="@this panelGridPesq" />
-                    <p:separator></p:separator>
-                    <p:commandButton value="Novo" actionListener="#{GedodC.novo()}" 
-                                     update="@form" global="false"  />
-                </p:toolbarGroup>
-            </p:toolbar>
-
-            <!--mostra a toolbar se mostra_toolbar == false-->
-            <p:toolbar id="toolbar_pesquisa" styleClass="toolbar" rendered="#{GedodC.mostra_toolbar}">
-                <p:toolbarGroup  >
-                    <p:commandButton value="Salvar" action="#{GedodC.salvar()}" update="panelGrop" />
-                    <p:separator></p:separator>
-                    <p:commandButton value="Cancelar" actionListener="#{GedodC.novo()}" immediate="true"
-                                     update="@form" global="false" />
-                </p:toolbarGroup>
-
-                <p:toolbarGroup align="right">
-
-
-                </p:toolbarGroup>
-
-            </p:toolbar>
+           
 
             <p:messages id="mens" autoUpdate="true" />
 
             <!--inicio da tela de pesquisa-->
             <h:panelGroup id="aba1" rendered="#{!GedodC.mostra_toolbar}" >
+                 <!--mostra a toolbar se mostra_toolbar == true--> 
+            <p:toolbar styleClass="toolbar" >
+                <p:toolbarGroup  >
+                    <p:commandButton value="Pesquisar" actionListener="#{GedodC.pesquisar()}" update="dadosEquipamento" process="@this panelGridPesq" />
+                    <p:separator></p:separator>
+                    <p:commandButton value="Novo" actionListener="#{GedodC.novo()}" 
+                                     update="@form" global="false"  />
+                </p:toolbarGroup>
+            </p:toolbar>
                 <p:panelGrid id="panelGridPesq" columns="2" layout="grid" columnClasses="ui-grid-col-1, ui-grid-col-5" styleClass="painel_grid_noborder" >
 
                     <p:outputLabel for="nome_pesquisa" value="Nome :" />
@@ -51,27 +34,36 @@
                     <p:spacer />
 
                 </p:panelGrid>
+                
+                
 
-                <p:dataTable id="dadosEquipamento" value="#{GedodC.modelGedod}" var="equipamento" reflow="true"
-                             style="margin-top: 20px;"  emptyMessage="Nenhum equipamento encontrado">
-                    <p:column headerText="Nome" priority="1">
-                        <h:outputText value="#{GedodC.gedod.nome}" />
-                    </p:column>
+               
+                <p:dataTable id="dadosEquipamento" value="#{GedodC.modelGedod}" var="equipamento" reflow="true" paginator="true"
+                             style="margin-top: 20px;"  emptyMessage="Nenhum equipamento encontrado" rows="10" paginatorPosition="bottom"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             currentPageReportTemplate="[ {currentPage} de {totalPages}  ]"
+                             rowsPerPageTemplate="5,10,15">
+                    <p:column headerText="Nome">
+                        <h:outputText value="#{equipamento.nome}" />
+                    </p:column>            
+                    <p:column headerText="Data">
+                        <h:outputText value="#{equipamento.dataCadastro}" />
+                    </p:column>            
+                    <p:column headerText="Descrição">
+                        <h:outputText value="#{equipamento.descricaoDefeito}" />
+                    </p:column>            
 
-                    <p:column headerText="Alterar" class="centralizado tabela_botao_usuario" priority="1" >
+
+                    <p:column headerText="Alterar" class="centralizado tabela_botao_usuario"  >
                         <p:commandButton icon="ui-icon-pencil" title="Alterar"
-                                         process="@this" update="@form" actionListener="#{GedodC.alterarEquipamento()}">
-                            <f:setPropertyActionListener target="#{GedodC.gedod}" value="#{gedod}"   />          
+                                         process="@this" update="@form" actionListener="#{GedodC.alterarEquipamento}">
                         </p:commandButton>
 
-                        <p:commandButton icon="ui-icon-trash" actionListener="#{GedodC.excluir()}"
-                                         update="dadosEquipamento" title="Excluir" >
-                            <p:confirm header="Confirmação" message="Tem certeza ?" 
+                        <p:commandButton icon="ui-icon-trash"  actionListener="#{GedodC.excluir()}"
+                                         update="@form" title="Excluir">
+                            <p:confirm header="Confirmação" message="Tem certeza que deseja excluir?" 
                                        icon="ui-icon-alert" />
-                            <f:setPropertyActionListener target="#{GedodC.gedod}" value="#{gedod}"   />
                         </p:commandButton>
-
-
                     </p:column>
 
                 </p:dataTable>
@@ -86,9 +78,19 @@
 
             <!--inicio da tela de cadastro (salvar e alterar)-->
             <h:panelGroup id="panelGrop" rendered="#{GedodC.mostra_toolbar}" >
+                
+            <!--mostra a toolbar se mostra_toolbar == false-->
+            <p:toolbar id="toolbar_pesquisa" styleClass="toolbar" >
+                <p:toolbarGroup  >
+                    <p:commandButton value="Salvar" action="#{GedodC.salvar()}" update="panelGrop" />
+                    <p:separator></p:separator>
+                    <p:commandButton value="Cancelar" actionListener="#{GedodC.novo()}" immediate="true"
+                                     update="@form" global="false" />
+                </p:toolbarGroup>
+
+            </p:toolbar>
                 <p:panelGrid columns="2" layout="grid" columnClasses="ui-grid-col-2, ui-grid-col-4" 
                              styleClass="painel_grid_noborder" >
-
 
                     <p:outputLabel for="nome" value="Nome :" />
                     <p:inputText id="nome" value="#{GedodC.gedod.nome}" required="true" style="width: 100%; max-width: 600px;"/>
@@ -101,16 +103,6 @@
                     <p:outputLabel for="dtCadastro" value="Data de Cadastro :" />
                     <p:calendar id="dtCadastro" value="#{GedodC.gedod.dataCadastro}" required="true" style="width: 100%; max-width: 600px;"/>
                    
-                    
-
-
-
-
-
-
-
-
-
                 </p:panelGrid>
             </h:panelGroup>
             <!--fim da tela de cadastro-->
