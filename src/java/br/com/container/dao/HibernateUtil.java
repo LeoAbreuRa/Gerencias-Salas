@@ -15,6 +15,7 @@ import br.com.container.modelo.Empresa;
 import br.com.container.modelo.Endereco;
 import br.com.container.modelo.Funcao;
 import br.com.container.modelo.Funcionario;
+import br.com.container.modelo.Gedod;
 import br.com.container.modelo.Perfil;
 import br.com.container.modelo.Pessoa;
 import br.com.container.modelo.Planejamento;
@@ -55,6 +56,8 @@ public class HibernateUtil {
             cfg.addAnnotatedClass(Disciplina.class);
             cfg.addAnnotatedClass(Endereco.class);
             cfg.addAnnotatedClass(Empresa.class);
+            cfg.addAnnotatedClass(Gedod.class);
+            
             
 
             cfg.configure("/br/com/container/dao/hibernate.cfg.xml");

@@ -8,7 +8,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="conteudo">
-        <h1 class="jr-titulo1">Gerenciador de equipamentos danificados ou com defeitos </h1>
+        <h1 class="jr-titulo1">Gerenciador de equipamentos danificados </h1>
 
         <h:form id="form_pesquisa">
 
@@ -97,12 +97,12 @@
                     <p:outputLabel for="lugar" value="Lugar :" />
                     <p:inputText id="lugar" value="#{GedodC.gedod.lugar}" required="true" style="width: 100%; max-width: 600px;"/>
                     <p:outputLabel for="descricaoDefeito" value="Descrição do defeito :" />
-                    <p:inputText id="descricaoDefeito" value="#{GedodC.gedod.descricaoDefeito}" required="true" style="width: 100%; max-width: 600px;"/>
-                    <p:outputLabel for="dtCadastro" value="Data do cadastro" />
-                    <p:calendar id="dtCadastro" value="#{ocupacaoControle.reserva.inicio}" pattern="dd/MM/yyyy">
-                        <p:ajax event="dateSelect" listener="#{ocupacaoControle.pesquisaSalaParaSalvar}" 
-                                update="listaDeClassesDisponiveis, diaSemana, fim"/>
-                    </p:calendar>
+                    <p:inputTextarea id="descricaoDefeito" value="#{GedodC.gedod.descricaoDefeito}" required="true" style="width: 100%; max-width: 600px;"/>
+                    <p:outputLabel for="dtCadastro" value="Data de Cadastro :" />
+                    <p:calendar id="dtCadastro" value="#{GedodC.gedod.dataCadastro}" required="true" style="width: 100%; max-width: 600px;"/>
+                   
+                    
+
 
 
 
