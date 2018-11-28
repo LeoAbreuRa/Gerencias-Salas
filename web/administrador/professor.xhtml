@@ -40,13 +40,16 @@
                     <p:inputText id="pesqNome" value="#{profC.pesqNome}" style="margin-left: 5px"/>
                     <p:outputLabel for="pesqDisc" value="Disciplina:" />
                     <p:inputText id="pesqDisc" value="#{profC.pesqDisciplina}" style="margin-left: 5px"/>
+                    <p:outputLabel for="pesqBairroCidade" value="Bairro/Cidade:" />
+                    <p:inputText id="pesqBairroCidade" value="#{profC.pesqBairroCidade}" style="margin-left: 5px"/>
                     <p:spacer />
+
 
                 </p:panelGrid>
 
                 <p:dataTable id="dadosProf" value="#{profC.modelProfs}" var="prof" reflow="true" paginator="true"
                              style="margin-top: 20px;"  emptyMessage="Nenhum professor encontrado" rows="10" paginatorPosition="bottom"
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters} {RowsPerPageDropdown}"
                              currentPageReportTemplate="[ {currentPage} de {totalPages}  ]"
                              rowsPerPageTemplate="5,10,15">
                     <p:column headerText="Nome">
@@ -61,17 +64,22 @@
                     <p:column headerText="Disciplina" >
                         <h:outputText value="#{prof.disciplinas}" />
                     </p:column>
+                    <p:column headerText="Cidade" >
+                        <h:outputText value="#{prof.endereco.cidade}" />
+                    </p:column>
+                    <p:column headerText="Bairro" >
+                        <h:outputText value="#{prof.endereco.bairro}" />
+                    </p:column>
                     <p:column headerText="Whatsapp">
                         <p:selectBooleanButton value="#{prof.whatsapp}" disabled="true" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close"/>
                     </p:column>
-
-
                     <p:column headerText="Alterar" class="centralizado tabela_botao_usuario"  >
                         <p:commandButton icon="ui-icon-pencil" title="Alterar"
                                          process="@this" update="@form" actionListener="#{profC.alterarProf}">
                             <f:setPropertyActionListener target="#{profC.prof}" value="#{prof}"/>          
                         </p:commandButton>
-
+                        
+                  
                         <p:commandButton icon="ui-icon-trash" actionListener="#{profC.excluir()}"
                                          update="dadosProf" title="Excluir">
                             <p:confirm header="Confirmação" message="Tem certeza exclusão?" 
@@ -79,6 +87,15 @@
                             <f:setPropertyActionListener target="#{profC.prof}" value="#{prof}"   />
                         </p:commandButton>
                     </p:column>
+                    
+                        <f:facet name="{Exporters}">
+                        <div style="float:right;padding-bottom:5px;padding-left: auto">
+                            <h:commandLink>
+                                <p:graphicImage name="/imagem/pdf.png" width="24"/>
+                                <p:dataExporter type="pdf" target="dadosProf" fileName="professores"/>
+                            </h:commandLink>
+                        </div>
+                    </f:facet>
 
                 </p:dataTable>
                 <p:confirmDialog id="confirmacao" global="true" showEffect="fade" hideEffect="fade">
@@ -96,6 +113,7 @@
                     <p:outputLabel for="nome" value="Nome :" />
                     <p:inputText id="nome" value="#{profC.prof.nome}" required="true" size="40" style="width: 100%; max-width: 600px;"/>
 
+                    
                     <p:outputLabel for="foneFixo" value="Fone fixo:" />
                     <p:inputMask id="foneFixo" value="#{profC.prof.foneFixo}" required="false" mask="(99) 99999-9999" style="width: 100%; max-width: 600px;"/>
 

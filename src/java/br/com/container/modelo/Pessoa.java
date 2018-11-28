@@ -32,6 +32,8 @@ public class Pessoa implements Serializable{
     
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "pessoa")
     private Endereco endereco;
+    
+
 
     public Pessoa(Long id, String nome, String email, String foneFixo, String foneMovel, Boolean whatsapp) {
         this.id = id;
