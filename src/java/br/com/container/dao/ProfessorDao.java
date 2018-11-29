@@ -17,4 +17,5 @@ import org.hibernate.Session;
 public interface ProfessorDao extends BaseDao<Professor, Long>{
     List<Professor> pesqPorDisciplina(String disciplina, Session session) throws HibernateException;
     List<Professor> pesqPorNomeEDisciplina(String nome, String disciplina, Session session) throws HibernateException;
+    List<Professor> pesqBairroCidade(String bairroCidade, Session session) throws HibernateException;
 }

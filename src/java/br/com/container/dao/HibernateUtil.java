@@ -59,11 +59,10 @@ public class HibernateUtil {
             cfg.addAnnotatedClass(Disciplina.class);
             cfg.addAnnotatedClass(Endereco.class);
             cfg.addAnnotatedClass(Empresa.class);
-            cfg.addAnnotatedClass(Gedod.class);
             cfg.addAnnotatedClass(CarteirinhaBiblioteca.class);
+            cfg.addAnnotatedClass(Gedod.class);
             cfg.addAnnotatedClass(PlanejamentoTemplate.class);
             cfg.addAnnotatedClass(AtividadeTemplate.class);
-            
 
             cfg.configure("/br/com/container/dao/hibernate.cfg.xml");
 

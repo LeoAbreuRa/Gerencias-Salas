@@ -3,6 +3,8 @@
   <persistence-unit name="ContainerPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>br.com.container.modelo.Aluno</class>
+    <class>br.com.container.modelo.PlanejamentoTemplate</class>
+    <class>br.com.container.modelo.AtividadeTemplate</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/senac_teste"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

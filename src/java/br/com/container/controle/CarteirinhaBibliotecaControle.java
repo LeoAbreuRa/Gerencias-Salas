@@ -12,6 +12,8 @@ import br.com.container.modelo.CarteirinhaBiblioteca;
 import br.com.container.modelo.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -112,8 +114,9 @@ public class CarteirinhaBibliotecaControle implements Serializable {
         try {
             abreSessao();
 
-            carteirinhaBiblioteca.setNumero("12345");
+            carteirinhaBiblioteca.setValidade(umAnoValidade());
             carteirinhaBiblioteca.setAluno(aluno);
+            carteirinhaBiblioteca.setNumero(aluno.getCpf());
             dao.salvarOuAlterar(carteirinhaBiblioteca, session);
 
             Mensagem.salvar("Carteirinha salva");
@@ -165,6 +168,16 @@ public class CarteirinhaBibliotecaControle implements Serializable {
             session.close();
         }
         return alunos;
+    }
+    
+    private Date umAnoValidade() {
+        Date d = new Date();
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(d);
+        c.set(Calendar.YEAR, c.get(Calendar.YEAR) + 1);
+        
+        return c.getTime();
     }
 
     public List<Aluno> getAlunos() {

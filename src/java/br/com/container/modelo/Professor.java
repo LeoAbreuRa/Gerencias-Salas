@@ -7,6 +7,8 @@ package br.com.container.modelo;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -22,6 +24,9 @@ public class Professor extends Pessoa implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String disciplinas;
+    
+    
+    
 
     public Professor() {
     }

@@ -31,7 +31,7 @@ public class CarteirinhaBiblioteca implements Serializable {
     @Column(nullable = false)
     private String curso;
     
-    @Column(nullable = false)
+    
     private String numero;
     
     @OneToOne

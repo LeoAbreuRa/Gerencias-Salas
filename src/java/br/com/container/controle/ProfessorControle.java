@@ -35,7 +35,12 @@ public class ProfessorControle implements Serializable {
     private boolean pesquisaPorDisciplina = false;
     private String pesqNome = "";
     private String pesqDisciplina = "";
-
+  
+    private String pesqBairroCidade = "";
+   // private String pesqCidade = "";
+    
+    
+ 
     private Session session;
     private ProfessorDao dao;
 
@@ -44,8 +49,6 @@ public class ProfessorControle implements Serializable {
     private DataModel<Professor> modelProfs;
     private List<String> disciplinas;
     private Endereco endereco;
-
-    
     private EnderecoDao enderecoDao;
 
     private void abreSessao() {
@@ -60,6 +63,10 @@ public class ProfessorControle implements Serializable {
         profs = new ArrayList();
         disciplinas = new ArrayList();
         pesqNome = "";
+        pesqBairroCidade = "";
+    //    pesqCidade="";
+       // pesqBairro="";
+
         mostraToolbar = !mostraToolbar;
     }
 
@@ -74,6 +81,10 @@ public class ProfessorControle implements Serializable {
                 profs = dao.pesqPorDisciplina(pesqDisciplina, session);
             } else if (!pesqNome.equals("")) {
                 profs = dao.pesquisaPorNome(pesqNome, session);
+            } else if ( !pesqBairroCidade.equals("")) {
+                profs = dao.pesqBairroCidade(pesqBairroCidade, session);
+                       
+
             } else {
                 profs = dao.listaTodos(session);
             }
@@ -81,6 +92,10 @@ public class ProfessorControle implements Serializable {
             modelProfs = new ListDataModel(profs);
             pesqNome = null;
             pesqDisciplina = null;
+         
+            pesqBairroCidade = null;
+            
+           
         } catch (HibernateException ex) {
             System.err.println("Erro pesquisa professor:\n" + ex.getMessage());
         } finally {
@@ -192,7 +207,7 @@ public class ProfessorControle implements Serializable {
     public Professor getProf() {
         if (prof == null) {
             prof = new Professor();
-            
+
         }
         return prof;
     }
@@ -230,16 +245,58 @@ public class ProfessorControle implements Serializable {
     public void setDisciplinas(List<String> disciplinas) {
         this.disciplinas = disciplinas;
     }
-    
+
     public Endereco getEndereco() {
         if (endereco == null) {
             endereco = new Endereco();
         }
         return endereco;
-        
+
     }
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
+
+    public String getPesqBairroCidade() {
+        return pesqBairroCidade;
+    }
+
+    public void setPesqBairroCidade(String pesqBairroCidade) {
+        this.pesqBairroCidade = pesqBairroCidade;
+    }
+
+    
+
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
+    public ProfessorDao getDao() {
+        return dao;
+    }
+
+    public void setDao(ProfessorDao dao) {
+        this.dao = dao;
+    }
+
+    public EnderecoDao getEnderecoDao() {
+        return enderecoDao;
+    }
+
+    public void setEnderecoDao(EnderecoDao enderecoDao) {
+        this.enderecoDao = enderecoDao;
+        
+        
+    }
+
+  
+
+   
+
 }
