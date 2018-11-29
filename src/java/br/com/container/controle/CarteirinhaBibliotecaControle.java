@@ -9,7 +9,6 @@ import br.com.container.dao.HibernateUtil;
 import br.com.container.modelo.Aluno;
 import br.com.container.modelo.CarteirinhaBiblioteca;
 
-import br.com.container.modelo.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -119,13 +118,25 @@ public class CarteirinhaBibliotecaControle implements Serializable {
             carteirinhaBiblioteca.setNumero(aluno.getCpf());
             dao.salvarOuAlterar(carteirinhaBiblioteca, session);
 
-            Mensagem.salvar("Carteirinha salva");
+            Mensagem.salvar("Carteirinha ");
         } catch (Exception ex) {
             Mensagem.mensagemError("Erro ao salvar\nTente novamente");
             System.err.println("Erro pesquisa carteirinha:\n" + ex.getMessage());
         } finally {
             carteirinhaBiblioteca = new CarteirinhaBiblioteca();
 
+            session.close();
+        }
+    }
+    
+    public void atualizarAluno(){
+        alunoDao = new AlunoDaoImpl();
+        try {
+            abreSessao();
+            aluno = alunoDao.pesquisaEntidadeId(aluno.getId(), session);
+        } catch (HibernateException ex) {
+            System.out.println("Erro ao pesqusiar por id para atualizar o aluno " + ex.getMessage());
+        }finally{
             session.close();
         }
     }
@@ -142,8 +153,9 @@ public class CarteirinhaBibliotecaControle implements Serializable {
         try {
             abreSessao();
             dao.remover(carteirinhaBiblioteca, session);
+            modelCarteirinhas = new ListDataModel<>(new ArrayList<>());
             Mensagem.excluir("Carteirinha " + carteirinhaBiblioteca.getAluno());
-            aluno = new Aluno();
+            carteirinhaBiblioteca = new CarteirinhaBiblioteca();
         } catch (Exception ex) {
             System.err.println("Erro ao excluir carteirinha\n" + ex.getMessage());
         } finally {
@@ -170,13 +182,13 @@ public class CarteirinhaBibliotecaControle implements Serializable {
         return alunos;
     }
     
-    private Date umAnoValidade() {
+    public Date umAnoValidade() {
         Date d = new Date();
 
         Calendar c = Calendar.getInstance();
         c.setTime(d);
         c.set(Calendar.YEAR, c.get(Calendar.YEAR) + 1);
-        
+
         return c.getTime();
     }
 

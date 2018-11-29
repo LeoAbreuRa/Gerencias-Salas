@@ -1,7 +1,6 @@
 
 package br.com.container.dao;
 
-import br.com.container.modelo.Agenda;
 import br.com.container.modelo.CarteirinhaBiblioteca;
 import java.io.Serializable;
 import java.util.List;
@@ -27,14 +26,14 @@ public class CarteirinhaBibliotecaDaoImpl  extends BaseDaoImpl<CarteirinhaBiblio
 
     @Override
     public List<CarteirinhaBiblioteca> pesquisaPorNome(String nome, Session session) throws HibernateException {
-       Query consulta = session.createQuery("from Aluno where nome like :nome");
+       Query consulta = session.createQuery("from CarteirinhaBiblioteca where nome like :nome");
         consulta.setParameter("nome", "%" + nome + "%");
         return consulta.list();
     }
 
     @Override
     public List<CarteirinhaBiblioteca> pesquisarPorCPF(String cpf, Session session) {
-        Query consulta = session.createQuery("from Aluno where cpf like :cpf");
+        Query consulta = session.createQuery("from CarteirinhaBiblioteca where numero like :cpf");
         consulta.setParameter("cpf", cpf);
         return consulta.list();
     }
