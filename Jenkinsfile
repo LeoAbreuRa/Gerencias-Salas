@@ -1,4 +1,3 @@
-
 #!groovy
 
 pipeline {
@@ -14,13 +13,13 @@ pipeline {
         stage('Docker Compile Class') {
             agent any
             steps {
-                sh 'cd src/java/br/com/container/util && docker run --rm -v $PWD:/app -w /app demo/oracle-java:8 javac InicializadorProjeto.java'
+                sh 'cd src/java/br/com/container/util/ && docker run --rm -v $PWD:/app -w /app demo/oracle-java:8 javac InicializadorProjeto.java'
             }
         }    
         stage('Docker Execute Java Class') {
             agent any
             steps {
-                sh 'cd src/java/br/com/container/util && docker run --rm -v $PWD:/app -w /app demo/oracle-java:8 javac InicializadorProjeto.java'
+                sh 'cd src/java/br/com/container/util/ && docker run --rm -v $PWD:/app -w /app demo/oracle-java:8 javac InicializadorProjeto.java'
             }
         }        
     }
